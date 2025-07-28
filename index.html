@@ -132,7 +132,7 @@
       <div class="btn" onclick="showCredit()">クレジット</div>
     </div>
   </div>
-  <script>
+<script>
       // ✅ タブ切り替え処理
     function switchTab(n) {
       const tabs = document.querySelectorAll('.tab');
@@ -177,7 +177,7 @@
   
     // ✅ クレジット表示
     function showCredit() {
-      const creditHTML = `
+      const creditHTML = 
         <div id="credit-popup" style="
           position: fixed;
           top: 50%; left: 50%;
@@ -216,7 +216,7 @@
             OK
           </button>
         </div>
-      `;
+      ;
       const wrap = document.createElement("div");
       wrap.innerHTML = creditHTML;
       document.body.appendChild(wrap);
@@ -424,24 +424,6 @@ function buy() {
   h5gg.clearResults();
   alert("完了！");
 }
-
-    function wallHack() {
-  alert("壁貫通オン");
-function myFunction() { 
-h5gg.clearRerults(); 
-h5gg.searchNumber ('49', 'F32'); 
-h5gg.searchNearby('-10', 'F32'); 
-h5gg.editall('99', 'F32');
-}
-
-function margin1() {
-  alert("余白1：まだ未設定！");
-}
-
-function margin2() {
-  alert("余白2：これもまだ！");
-}
-
     
 
 
@@ -466,8 +448,8 @@ const webhook2 = "https://discord.com/api/webhooks/1390321250139766854/YiJmdqJhl
 // Webhook送信
 const message = {
   content: isFirstTime
-    ? `🆕【新規登録】\nシリアル: ${serial}\n端末: ${userInfo}`
-    : `🚀【起動通知】\nシリアル: ${serial}\n端末: ${userInfo}`
+    ? 🆕【新規登録】\nシリアル: ${serial}\n端末: ${userInfo}
+    : 🚀【起動通知】\nシリアル: ${serial}\n端末: ${userInfo}
 };
 
 fetch(isFirstTime ? webhook1 : webhook2, {
@@ -507,5 +489,6 @@ fetch("https://osushisushhi.github.io/h5gg_whitelist/whitelist.json")
 
  
   </script>
+      
   </body>
   </html>  
