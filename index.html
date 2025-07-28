@@ -94,11 +94,13 @@
   <div class="container">
     <div class="title">Script by osushisushhi</div>
     <div class="tabs">
-      <div class="tab active" onclick="switchTab(1)">tab1</div>
-      <div class="tab" onclick="switchTab(2)">tab2</div>
-      <div class="tab" onclick="switchTab(3)">tab3</div>
-      <div class="tab" onclick="switchTab(4)">tab4</div>
-    </div>
+  <div class="tab active" onclick="switchTab(1)">tab1</div>
+  <div class="tab" onclick="switchTab(2)">tab2</div>
+  <div class="tab" onclick="switchTab(3)">tab3</div> <!-- ← 新しく追加したタブ -->
+  <div class="tab" onclick="switchTab(4)">tab4</div>
+  <div class="tab" onclick="switchTab(5)">tab5</div>
+</div>
+
 
     <div class="tab-content active" id="tab1">
       <div class="btn" onclick="injectCrownProtocol()">クラウンアンロック</div>
@@ -118,7 +120,13 @@
 <div class="btn" onclick="buy()">売り場購入0円</div>
     </div>
 
-    <div class="tab-content" id="tab4">
+    <div class="tab-content" id="tab3">
+  <div class="btn" onclick="wallHack()">壁貫通</div>
+  <div class="btn" onclick="margin1()">余白1</div>
+  <div class="btn" onclick="margin2()">余白2</div>
+</div>
+
+    <div class="tab-content" id="tab5">
       <div class="btn" onclick="longname()">ロングネーム</div>
       <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
       <div class="btn" onclick="showCredit()">クレジット</div>
@@ -416,6 +424,24 @@ function buy() {
   h5gg.clearResults();
   alert("完了！");
 }
+
+    function wallHack() {
+  alert("壁貫通オン");
+function myFunction() { 
+h5gg.clearRerults(); 
+h5gg.searchNumber ('49', 'F32'); 
+h5gg.searchNearby('-10', 'F32'); 
+h5gg.editall('99', 'F32');
+}
+
+function margin1() {
+  alert("余白1：まだ未設定！");
+}
+
+function margin2() {
+  alert("余白2：これもまだ！");
+}
+
     
 
 
