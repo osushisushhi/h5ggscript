@@ -36,26 +36,29 @@
     }
 
     .tabs {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 14px;
-    }
+  display: flex;
+  flex-wrap: wrap; /* 複数行に対応 */
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 8px;
+}
 
-    .tab {
-      flex: 1;
-      margin: 0 4px;
-      text-align: center;
-      padding: 10px;
-      cursor: pointer;
-      border: 2px solid #00f0ff;
-      color: white;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-      transition: all 0.2s ease;
-      font-weight: bold;
-      text-shadow: 0 0 6px #00f0ff, 0 0 4px #fff;
-    }
+.tab {
+  width: 48%; /* 2列にする */
+  margin: 0;
+  /* 以下はそのまま */
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  border: 2px solid #00f0ff;
+  color: white;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+  transition: all 0.2s ease;
+  font-weight: bold;
+  text-shadow: 0 0 6px #00f0ff, 0 0 4px #fff;
+}
 
     .tab.active {
       background-color: rgba(0, 255, 255, 0.2);
@@ -91,47 +94,49 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="title">Script by osushisushhi</div>
-    <div class="tabs">
+  <div class="tabs">
   <div class="tab active" onclick="switchTab(1)">tab1</div>
   <div class="tab" onclick="switchTab(2)">tab2</div>
-  <div class="tab" onclick="switchTab(3)">tab3</div> <!-- ← 新しく追加したタブ -->
-  <div class="tab" onclick="switchTab(4)">tab4</div>
+  <div class="tab" onclick="switchTab(3)">tab3</div> <!-- 移植系 -->
+  <div class="tab" onclick="switchTab(4)">tab4</div> <!-- 壁貫通系 -->
   <div class="tab" onclick="switchTab(5)">tab5</div>
+  <div class="tab" onclick="switchTab(6)">tab6</div> <!-- まだ中身なし -->
 </div>
 
+<div class="tab-content active" id="tab1">
+  <div class="btn" onclick="injectCrownProtocol()">クラウンアンロック</div>
+  <div class="btn" onclick="oniCamber()">鬼キャン</div>
+  <div class="btn" onclick="customHorsepower()">カスタム馬力</div>
+</div>
 
-    <div class="tab-content active" id="tab1">
-      <div class="btn" onclick="injectCrownProtocol()">クラウンアンロック</div>
-      <div class="btn" onclick="oniCamber()">鬼キャン</div>
-      <div class="btn" onclick="customHorsepower()">カスタム馬力</div>
-    </div>
+<div class="tab-content" id="tab2">
+  <div class="btn" onclick="rocketPower()">ロケット</div>
+  <div class="btn" onclick="carBodyChrome()">車体メッキ</div>
+  <div class="btn" onclick="wheelChrome()">ホイールメッキ</div>
+</div>
 
-    <div class="tab-content" id="tab2">
-      <div class="btn" onclick="rocketPower()">ロケット</div>
-      <div class="btn" onclick="carBodyChrome()">車体メッキ</div>
-      <div class="btn" onclick="wheelChrome()">ホイールメッキ</div>
-    </div>
+<div class="tab-content" id="tab3">
+  <div class="btn" onclick="implantParts()">移植パーツ</div>
+  <div class="btn" onclick="implantWing()">移植ウィング</div>
+  <div class="btn" onclick="buy()">売り場購入0円</div>
+</div>
 
-    <div class="tab-content" id="tab3">
-     <div class="btn" onclick="implantParts()">移植パーツ</div>
-<div class="btn" onclick="implantWing()">移植ウィング</div>
-<div class="btn" onclick="buy()">売り場購入0円</div>
-    </div>
-
-    <div class="tab-content" id="tab3">
+<div class="tab-content" id="tab4">
   <div class="btn" onclick="wallHack()">壁貫通</div>
   <div class="btn" onclick="margin1()">余白1</div>
   <div class="btn" onclick="margin2()">余白2</div>
 </div>
 
-    <div class="tab-content" id="tab5">
-      <div class="btn" onclick="longname()">ロングネーム</div>
-      <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
-      <div class="btn" onclick="showCredit()">クレジット</div>
-    </div>
-  </div>
+<div class="tab-content" id="tab5">
+  <div class="btn" onclick="longname()">ロングネーム</div>
+  <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
+  <div class="btn" onclick="showCredit()">クレジット</div>
+</div>
+
+<div class="tab-content" id="tab6">
+  <!-- ここに新しいボタンを追加するならどうぞ！ -->
+</div>
+
 <script>
       // ✅ タブ切り替え処理
     function switchTab(n) {
