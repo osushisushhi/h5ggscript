@@ -14,39 +14,27 @@
     }
 
     .container {
-      border: 2px solid #00f0ff;
-      padding: 10px 20px 15px 20px;
-      width: calc(100% - 40px);
-      max-width: 420px;
-      margin: 40px auto;
-      background: linear-gradient(180deg, rgba(0,255,255,0.05), rgba(255,0,255,0.05));
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.2);
-      backdrop-filter: blur(4px);
-    }
+  border: 2px solid #00f0ff;
+  padding: 10px 20px 15px 20px;
+  width: calc(100% - 40px);
+  max-width: 360px; /* ← ここ変更 */
+  margin: 40px auto;
+  background: linear-gradient(180deg, rgba(0,255,255,0.05), rgba(255,0,255,0.05));
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.2);
+  backdrop-filter: blur(4px);
+}
 
-    .title {
-      text-align: center;
-      color: #00f0ff;
-      font-weight: bold;
-      font-size: 16px;
-      margin-bottom: 10px;
-      margin-top: 4px;
-      text-shadow: 0 0 6px #00f0ff, 0 0 10px #ff00ff;
-    }
-
-    .tabs {
+.tabs {
   display: flex;
-  flex-wrap: wrap; /* 複数行に対応 */
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 14px;
   gap: 8px;
 }
 
 .tab {
-  width: 48%; /* 2列にする */
-  margin: 0;
-  /* 以下はそのまま */
+  width: calc(50% - 4px); /* ← 2列ピッタリに */
   text-align: center;
   padding: 10px;
   cursor: pointer;
@@ -60,27 +48,23 @@
   text-shadow: 0 0 6px #00f0ff, 0 0 4px #fff;
 }
 
-    .tab.active {
-      background-color: rgba(0, 255, 255, 0.2);
-      box-shadow: 0 0 15px #00f0ff;
-    }
+.btn {
+  display: block;
+  width: 100%;
+  margin: 8px 0; /* ← ちょっとコンパクトに */
+  padding: 14px;
+  background: rgba(255, 0, 255, 0.15);
+  color: #ffffff;
+  border: 2px solid #ff00ff;
+  border-radius: 10px;
+  font-size: 17px; /* ほんの少し小さめでも見やすい */
+  text-align: center;
+  text-shadow: 0 0 6px #ff00ff, 0 0 10px #fff;
+  box-shadow: 0 0 15px #ff00ff, 0 0 8px rgba(255, 0, 255, 0.3);
+  transition: transform 0.15s ease-in-out;
+  cursor: pointer;
+}
 
-    .btn {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 14px;
-      background: rgba(255, 0, 255, 0.15);
-      color: #ffffff;
-      border: 2px solid #ff00ff;
-      border-radius: 10px;
-      font-size: 18px;
-      text-align: center;
-      text-shadow: 0 0 6px #ff00ff, 0 0 10px #fff;
-      box-shadow: 0 0 15px #ff00ff, 0 0 8px rgba(255, 0, 255, 0.3);
-      transition: transform 0.15s ease-in-out;
-      cursor: pointer;
-    }
 
     .btn:hover {
       transform: scale(1.05);
