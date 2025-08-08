@@ -2,9 +2,9 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
+  <title>h5gg UI</title>
   <style>
     * { box-sizing: border-box; }
-
     body {
       background: radial-gradient(ellipse at center, #000010, #000000);
       margin: 0;
@@ -12,117 +12,119 @@
       font-family: 'Orbitron', 'Arial', sans-serif;
       color: #fff;
     }
-
     .container {
-  border: 2px solid #00f0ff;
-  padding: 10px 20px 15px 20px;
-  width: calc(100% - 40px);
-  max-width: 360px; /* ← ここ変更 */
-  margin: 40px auto;
-  background: linear-gradient(180deg, rgba(0,255,255,0.05), rgba(255,0,255,0.05));
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.2);
-  backdrop-filter: blur(4px);
-}
-
-.tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 14px;
-  gap: 8px;
-}
-
-.tab {
-  width: calc(50% - 4px); /* ← 2列ピッタリに */
-  text-align: center;
-  padding: 10px;
-  cursor: pointer;
-  border: 2px solid #00f0ff;
-  color: white;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-  transition: all 0.2s ease;
-  font-weight: bold;
-  text-shadow: 0 0 6px #00f0ff, 0 0 4px #fff;
-}
-
-.btn {
-  display: block;
-  width: 100%;
-  margin: 8px 0; /* ← ちょっとコンパクトに */
-  padding: 14px;
-  background: rgba(255, 0, 255, 0.15);
-  color: #ffffff;
-  border: 2px solid #ff00ff;
-  border-radius: 10px;
-  font-size: 17px; /* ほんの少し小さめでも見やすい */
-  text-align: center;
-  text-shadow: 0 0 6px #ff00ff, 0 0 10px #fff;
-  box-shadow: 0 0 15px #ff00ff, 0 0 8px rgba(255, 0, 255, 0.3);
-  transition: transform 0.15s ease-in-out;
-  cursor: pointer;
-}
-
-
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 18px #ff00ff, 0 0 20px #00f0ff;
+      border: 2px solid #00f0ff;
+      padding: 10px 20px 15px 20px;
+      width: calc(100% - 40px);
+      max-width: 360px;
+      margin: 24px auto;
+      background: linear-gradient(180deg, rgba(0,255,255,0.05), rgba(255,0,255,0.05));
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), 0 0 40px rgba(255, 0, 255, 0.2);
+      backdrop-filter: blur(4px);
     }
-
+    .title {
+      text-align: center;
+      color: #00f0ff;
+      font-weight: bold;
+      font-size: 16px;
+      margin: 6px 0 10px;
+      text-shadow: 0 0 6px #00f0ff, 0 0 10px #ff00ff;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap; /* 2行対応 */
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 8px;
+    }
+    .tab {
+      width: calc(50% - 4px);  /* 2列ピッタリ */
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      border: 2px solid #00f0ff;
+      color: white;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+      transition: all 0.2s ease;
+      font-weight: bold;
+      text-shadow: 0 0 6px #00f0ff, 0 0 4px #fff;
+    }
+    .tab.active { background-color: rgba(0,255,255,0.2); box-shadow: 0 0 15px #00f0ff; }
+    .btn {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 14px;
+      background: rgba(255, 0, 255, 0.15);
+      color: #ffffff;
+      border: 2px solid #ff00ff;
+      border-radius: 10px;
+      font-size: 17px;
+      text-align: center;
+      text-shadow: 0 0 6px #ff00ff, 0 0 10px #fff;
+      box-shadow: 0 0 15px #ff00ff, 0 0 8px rgba(255, 0, 255, 0.3);
+      transition: transform 0.15s ease-in-out;
+      cursor: pointer;
+    }
+    .btn:hover { transform: scale(1.05); box-shadow: 0 0 18px #ff00ff, 0 0 20px #00f0ff; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
   </style>
 </head>
 <body>
-  <div class="tabs">
-  <div class="tab active" onclick="switchTab(1)">tab1</div>
-  <div class="tab" onclick="switchTab(2)">tab2</div>
-  <div class="tab" onclick="switchTab(3)">tab3</div> <!-- 移植系 -->
-  <div class="tab" onclick="switchTab(4)">tab4</div> <!-- 壁貫通系 -->
-  <div class="tab" onclick="switchTab(5)">tab5</div>
-  <div class="tab" onclick="switchTab(6)">tab6</div> <!-- まだ中身なし -->
-</div>
+  <div class="container">
+    <div class="title">Script by osushisushhi</div>
 
-<div class="tab-content active" id="tab1">
-  <div class="btn" onclick="injectCrownProtocol()">クラウンアンロック</div>
-  <div class="btn" onclick="oniCamber()">鬼キャン</div>
-  <div class="btn" onclick="customHorsepower()">カスタム馬力</div>
-</div>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(1)">tab1</div>
+      <div class="tab" onclick="switchTab(2)">tab2</div>
+      <div class="tab" onclick="switchTab(3)">tab3</div> <!-- 移植系 -->
+      <div class="tab" onclick="switchTab(4)">tab4</div> <!-- 壁貫通系 -->
+      <div class="tab" onclick="switchTab(5)">tab5</div>
+      <div class="tab" onclick="switchTab(6)">tab6</div> <!-- 空 -->
+    </div>
 
-<div class="tab-content" id="tab2">
-  <div class="btn" onclick="rocketPower()">ロケット</div>
-  <div class="btn" onclick="carBodyChrome()">車体メッキ</div>
-  <div class="btn" onclick="wheelChrome()">ホイールメッキ</div>
-</div>
+    <div class="tab-content active" id="tab1">
+      <div class="btn" onclick="injectCrownProtocol()">クラウンアンロック</div>
+      <div class="btn" onclick="oniCamber()">鬼キャン</div>
+      <div class="btn" onclick="customHorsepower()">カスタム馬力</div>
+    </div>
 
-<div class="tab-content" id="tab3">
-  <div class="btn" onclick="implantParts()">移植パーツ</div>
-  <div class="btn" onclick="implantWing()">移植ウィング</div>
-  <div class="btn" onclick="buy()">売り場購入0円</div>
-</div>
+    <div class="tab-content" id="tab2">
+      <div class="btn" onclick="rocketPower()">ロケット</div>
+      <div class="btn" onclick="carBodyChrome()">車体メッキ</div>
+      <div class="btn" onclick="wheelChrome()">ホイールメッキ</div>
+    </div>
 
-<div class="tab-content" id="tab4">
-  <div class="btn" onclick="wallHack()">壁貫通</div>
-  <div class="btn" onclick="margin1()">余白1</div>
-  <div class="btn" onclick="margin2()">余白2</div>
-</div>
+    <div class="tab-content" id="tab3">
+      <div class="btn" onclick="implantParts()">移植パーツ</div>
+      <div class="btn" onclick="implantWing()">移植ウィング</div>
+      <div class="btn" onclick="buy()">売り場購入0円</div>
+    </div>
 
-<div class="tab-content" id="tab5">
-  <div class="btn" onclick="longname()">ロングネーム</div>
-  <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
-  <div class="btn" onclick="showCredit()">クレジット</div>
-</div>
+    <div class="tab-content" id="tab4">
+      <div class="btn" onclick="wallHack()">壁貫通</div>
+      <div class="btn" onclick="margin1()">余白1</div>
+      <div class="btn" onclick="margin2()">余白2</div>
+    </div>
 
-<div class="tab-content" id="tab6">
-  <!-- ここに新しいボタンを追加するならどうぞ！ -->
-</div>
+    <div class="tab-content" id="tab5">
+      <div class="btn" onclick="longname()">ロングネーム</div>
+      <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
+      <div class="btn" onclick="showCredit()">クレジット</div>
+    </div>
 
-<script>
-      // ✅ タブ切り替え処理
+    <div class="tab-content" id="tab6">
+      <!-- 追加予定 -->
+    </div>
+  </div>
+
+  <script>
+    // ✅ タブ切り替え（グローバル）
     function switchTab(n) {
       const tabs = document.querySelectorAll('.tab');
       const contents = document.querySelectorAll('.tab-content');
@@ -131,7 +133,7 @@
         contents[i].classList.toggle('active', i === n - 1);
       });
     }
-  
+
     // ✅ バージョン履歴
     function showVersionHistory() {
       alert(
@@ -145,161 +147,114 @@
         "by osushisushhi"
       );
     }
-  
-    // ✅ ロングネーム
-    function longname() {
-            h5gg.clearResults();
-            h5gg.searchNumber("4543443241174818784", "I32", "0x0", "0x200000000");
-            const results = h5gg.getResults(h5gg.getResultsCount());
-            h5gg.searchNearby('12', 'I32', '0x100');
-            h5gg.searchNumber("12", "I32", "0x0", "0x200000000");
-            h5gg.editAll('-1', 'I32');
-            h5gg.clearResults();
-            alert('完了');
-        }
-  
-    function jumpToTiktok() {
-      const popup = document.getElementById("credit-popup");
-      if (popup) popup.remove();
-      location.href = "https://www.tiktok.com/@osushisushhi";
-    }
-  
-    // ✅ クレジット表示
+
+    // ✅ クレジット表示（テンプレ文字列で安全に）
     function showCredit() {
-      const creditHTML = 
+      const creditHTML = `
         <div id="credit-popup" style="
-          position: fixed;
-          top: 50%; left: 50%;
+          position: fixed; top: 50%; left: 50%;
           transform: translate(-50%, -50%);
           background: rgba(0,0,0,0.85);
-          padding: 20px 30px;
-          border-radius: 12px;
-          text-align: center;
-          color: white;
+          padding: 20px 30px; border-radius: 12px;
+          text-align: center; color: white;
           font-family: 'Orbitron', sans-serif;
-          box-shadow: 0 0 20px #ff00ff;
-          z-index: 9999;
-        ">
+          box-shadow: 0 0 20px #ff00ff; z-index: 9999;">
           <div style="font-size: 20px; margin-bottom: 12px; text-shadow: 0 0 6px #0ff;">
             スクリプト製作者: お寿司スシィ
           </div>
           <div style="font-size: 16px; margin-bottom: 6px;">ー 協力者 ー</div>
           <div style="font-size: 15px; line-height: 1.6;">
-            ・kiyu4776<br>
-            ・チーパー<br>
-            ・ぽちさん
+            ・kiyu4776<br>・チーパー<br>・ぽちさん
           </div>
           <br>
           <button onclick="jumpToTiktok()" style="
-            margin-top: 12px;
-            padding: 10px 25px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
+            margin-top:12px; padding:10px 25px; font-size:16px;
+            border:none; border-radius:8px;
             background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: white;
-            cursor: pointer;
-            text-shadow: 0 0 6px #fff;
-            box-shadow: 0 0 10px #0ff;
-          ">
+            color:white; cursor:pointer; text-shadow:0 0 6px #fff;
+            box-shadow:0 0 10px #0ff;">
             OK
           </button>
-        </div>
-      ;
+        </div>`;
       const wrap = document.createElement("div");
       wrap.innerHTML = creditHTML;
       document.body.appendChild(wrap);
     }
-  
     function jumpToTiktok() {
       const popup = document.getElementById("credit-popup");
       if (popup) popup.remove();
       location.href = "https://www.tiktok.com/@osushisushhi";
     }
-  
-    // ✅ 処理系：クラウンアンロック
+
+    // ====== ここから処理系 ======
     function injectCrownProtocol() {
       h5gg.clearResults();
       h5gg.searchNumber('-4294967078', 'I64', '0x000000000', '0x200000000');
       h5gg.editAll('-4294967079', 'I64');
       alert('完了！');
     }
-  
-    // ✅ 鬼キャン処理
+
     function oniCamber() {
       alert("キャンバーをMAXにしてください");
       h5gg.clearResults();
       h5gg.searchNumber("-10", "F32", "0x0", "0x200000000");
       alert("リセットしてください");
       h5gg.searchNumber("0", "F32", "0x0", "0x200000000");
-      let customValue = prompt("キャンバー角を入力してください（-を最初につけてください）：", "-8");
-      if (customValue !== null) {
-        h5gg.editAll(customValue, "F32");
+      const v = prompt("キャンバー角を入力してください（-を最初につけてください）：", "-8");
+      if (v !== null) {
+        h5gg.editAll(v, "F32");
         h5gg.clearResults();
         alert("鬼キャン完了！");
       }
     }
-  
-    // ✅ 馬力・トルク
+
     function customHorsepower() {
-      let search1 = prompt("現在の馬力を入力してください：", "150");
-      if (search1 === null) return;
-      let edit1 = prompt("何馬力にしますか？", "300");
-      if (edit1 === null) return;
+      const s1 = prompt("現在の馬力を入力してください：", "150"); if (s1 === null) return;
+      const e1 = prompt("何馬力にしますか？", "300");        if (e1 === null) return;
       h5gg.clearResults();
-      h5gg.searchNumber(search1, "F32", "0x0", "0x200000000");
-      h5gg.editAll(edit1, "F32");
+      h5gg.searchNumber(s1, "F32", "0x0", "0x200000000");
+      h5gg.editAll(e1, "F32");
       h5gg.clearResults();
-  
-      let search2 = prompt("現在のトルクを入力してください：", "75");
-      if (search2 === null) return;
-      let edit2 = prompt("何トルクにしますか？", "200");
-      if (edit2 === null) return;
-      h5gg.searchNumber(search2, "F32", "0x0", "0x200000000");
-      h5gg.editAll(edit2, "F32");
+
+      const s2 = prompt("現在のトルクを入力してください：", "75"); if (s2 === null) return;
+      const e2 = prompt("何トルクにしますか？", "200");          if (e2 === null) return;
+      h5gg.searchNumber(s2, "F32", "0x0", "0x200000000");
+      h5gg.editAll(e2, "F32");
       h5gg.clearResults();
       alert("タイヤを取り付けてください");
     }
-  
-    // ✅ ロケット化
+
     function rocketPower() {
-      let search1 = prompt("現在の馬力を入力してください：", "150");
-      if (search1 === null) return;
+      const s1 = prompt("現在の馬力を入力してください：", "150"); if (s1 === null) return;
       h5gg.clearResults();
-      h5gg.searchNumber(search1, "F32", "0x0", "0x200000000");
+      h5gg.searchNumber(s1, "F32", "0x0", "0x200000000");
       h5gg.editAll("1000.999", "F32");
       h5gg.clearResults();
-  
-      let search2 = prompt("現在のトルクを入力してください：", "75");
-      if (search2 === null) return;
-      h5gg.searchNumber(search2, "F32", "0x0", "0x200000000");
+
+      const s2 = prompt("現在のトルクを入力してください：", "75"); if (s2 === null) return;
+      h5gg.searchNumber(s2, "F32", "0x0", "0x200000000");
       h5gg.editAll("999.999", "F32");
       h5gg.clearResults();
       alert("タイヤを取り付けてください");
     }
-  
-    // ✅ 車体メッキ
+
     function carBodyChrome() {
       h5gg.clearResults();
       h5gg.searchNumber("4575657222559105024", "I32", "0x0", "0x200000000");
       const count = h5gg.getResultsCount();
       const results = h5gg.getResults(count.toString(), "0");
       const value = "5555.0";
-  
       for (let i = 0; i < results.length; i++) {
         const address = Number(results[i].address);
         const base = address + 0xFC;
         for (let offset = -8; offset <= 8; offset += 4) {
-          let isValid = true;
+          let ok = true;
           for (let j = 0; j < 4; j++) {
             const tmp = base + offset + 4 * j;
             const val = Number(h5gg.getValue(tmp.toString(), "F32"));
-            if (isNaN(val) || (val !== 0 && (val < 1e-10 || val > 30))) {
-              isValid = false;
-              break;
-            }
+            if (isNaN(val) || (val !== 0 && (val < 1e-10 || val > 30))) { ok = false; break; }
           }
-          if (isValid) {
+          if (ok) {
             for (let j = 0; j < 4; j++) {
               const addr = base + offset + 4 * j;
               h5gg.setValue(addr.toString(), value, "F32");
@@ -311,29 +266,24 @@
       h5gg.clearResults();
       alert("車体メッキ完了！");
     }
-  
-    // ✅ ホイールメッキ
+
     function wheelChrome() {
       h5gg.clearResults();
       h5gg.searchNumber("50465865729", "I32", "0x0", "0x200000000");
       const count = h5gg.getResultsCount();
       const results = h5gg.getResults(count.toString(), "0");
       const value = "5559";
-  
       for (let i = 0; i < results.length; i++) {
         const address = Number(results[i].address);
         const base = address - 0xA4;
         for (let offset = -8; offset <= 8; offset += 4) {
-          let isValid = true;
+          let ok = true;
           for (let j = 0; j < 4; j++) {
             const tmp = base + offset + 4 * j;
             const val = Number(h5gg.getValue(tmp.toString(), "F32"));
-            if (isNaN(val) || (val !== 0 && (val < 1e-10 || val > 30))) {
-              isValid = false;
-              break;
-            }
+            if (isNaN(val) || (val !== 0 && (val < 1e-10 || val > 30))) { ok = false; break; }
           }
-          if (isValid) {
+          if (ok) {
             for (let j = 0; j < 4; j++) {
               const addr = base + offset + 4 * j;
               h5gg.setValue(addr.toString(), value, "F32");
@@ -345,139 +295,106 @@
       h5gg.clearResults();
       alert("ホイールメッキ完了！");
     }
-    
-    // ✅ 移植ウィング処理
-function implantWing() {
-  let v = prompt("ウィングの数値を入力：", "123456");
-  if (v === null || isNaN(v)) {
-    alert("キャンセルされました、または無効な数値です！");
-    return;
-  }
-  v = parseInt(v);
 
-  h5gg.clearResults();
-  h5gg.searchNumber("4575657222496845824", "I64", "0x0", "0x200000000");
-  const results = h5gg.getResults(h5gg.getResultsCount());
-  for (let i = 0; i < results.length; i++) {
-    const base = Number(results[i].address);
-    const target = base + 0x1E0;
-    h5gg.setValue(target.toString(), v, "I32");
-  }
-  h5gg.clearResults();
-  alert("完了！");
-}
-
-// ✅ 移植パーツ処理
-function implantParts() {
-  let v = prompt("パーツの数値を入力：", "123456");
-  if (v === null || isNaN(v)) {
-    alert("キャンセルされました、または無効な数値です！");
-    return;
-  }
-  v = parseInt(v);
-
-  h5gg.clearResults();
-  h5gg.searchNumber("4575657222496845824", "I64", "0x0", "0x200000000");
-  const results = h5gg.getResults(h5gg.getResultsCount());
-  for (let i = 0; i < results.length; i++) {
-    const base = Number(results[i].address);
-    const target = base + 0x1E0;
-    h5gg.setValue(target.toString(), v, "I32");
-  }
-  h5gg.clearResults();
-  alert("完了！");
-}
-
-function buy() {
-  const tmp = [
-    { value: "5020763491123680715", offset: 0x284 },
-    { value: "5196375486898191353", offset: 0x284 },
-    { value: "7661258481366876671", offset: 0x284 },
-    { value: "6412269033482941622", offset: 0x144 },
-    { value: "4880258008279034061", offset: 0x144 },
-    { value: "4317889481629514139", offset: 0x144 }
-  ];
-
-  for (const { value, offset } of tmp) {
-    h5gg.clearResults();
-    h5gg.searchNumber(value, "I64", "0x0", "0x150000000");
-    const results = h5gg.getResults(h5gg.getResultsCount());
-    if (!results.length) continue;
-    for (const r of results) {
-      const editAddr = Number(r.address) + offset;
-      h5gg.setValue(editAddr, -1, "I32");      // ← -1に固定
-      h5gg.setValue(editAddr - 4, 0, "I32");    // ← ここは0のままでOK
-    }
-  }
-
-  h5gg.clearResults();
-  alert("完了！");
-}
-    
-
-
-
-let serial = localStorage.getItem("serialKey");
-let userInfo = localStorage.getItem("deviceInfo");
-let isFirstTime = false;
-
-if (!serial || !userInfo) {
-  serial = "H5GG_" + Math.random().toString(36).substring(2, 10);
-  userInfo = navigator.userAgent;
-
-  localStorage.setItem("serialKey", serial);
-  localStorage.setItem("deviceInfo", userInfo);
-  isFirstTime = true;
-}
-
-// Webhook URLs（自分のに差し替えてね！）
-const webhook1 = "https://discord.com/api/webhooks/1390321208922341496/XRrTgY1Heya3iaBuD16Bhgd5pb3LN3-olFALLAbcWo-DpvAd1ToGUnhEP7-hjyQgyuW7";
-const webhook2 = "https://discord.com/api/webhooks/1390321250139766854/YiJmdqJhliEzauTZVMXqw7R9YDd0I2mzAyEkoxkA-Y6IxvZbMQKnOGqF_sRxdmpS5q_6";
-
-// Webhook送信
-const message = {
-  content: isFirstTime
-    ? 🆕【新規登録】\nシリアル: ${serial}\n端末: ${userInfo}
-    : 🚀【起動通知】\nシリアル: ${serial}\n端末: ${userInfo}
-};
-
-fetch(isFirstTime ? webhook1 : webhook2, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(message)
-});
-
-// ホワイトリスト確認
-fetch("https://osushisushhi.github.io/h5gg_whitelist/whitelist.json")
-  .then((res) => res.json())
-  .then((list) => {
-    if (!list.includes(serial)) {
-      alert("❌ ホワイトリストに登録されていません。\n👋 スクリプトを終了します。またね！");
-
-      const container = document.querySelector('.container');
-      if (container) {
-        container.remove();
+    // ✅ 移植ウィング/パーツ
+    function implantWing() {
+      let v = prompt("ウィングの数値を入力：", "123456");
+      if (v === null || isNaN(v)) { alert("キャンセルされました、または無効な数値です！"); return; }
+      v = parseInt(v);
+      h5gg.clearResults();
+      h5gg.searchNumber("4575657222496845824", "I64", "0x0", "0x200000000");
+      const results = h5gg.getResults(h5gg.getResultsCount());
+      for (let i = 0; i < results.length; i++) {
+        const base = Number(results[i].address);
+        const target = base + 0x1E0;
+        h5gg.setValue(target.toString(), v, "I32");
       }
-
-      document.body.innerHTML += "<p style='color:red; font-size:20px;'>スクリプトは終了しました。</p>";
-
-      throw new Error("Unauthorized serial");
+      h5gg.clearResults();
+      alert("完了！");
     }
-  })
-  .catch((err) => {
-    alert("⚠️ ホワイトリスト確認失敗！ネット環境またはURLを確認して！");
-    throw err;
-  });
+    function implantParts() { return implantWing(); }
 
+    // ✅ 0円購入
+    function buy() {
+      const tmp = [
+        { value: "5020763491123680715", offset: 0x284 },
+        { value: "5196375486898191353", offset: 0x284 },
+        { value: "7661258481366876671", offset: 0x284 },
+        { value: "6412269033482941622", offset: 0x144 },
+        { value: "4880258008279034061", offset: 0x144 },
+        { value: "4317889481629514139", offset: 0x144 }
+      ];
+      for (const { value, offset } of tmp) {
+        h5gg.clearResults();
+        h5gg.searchNumber(value, "I64", "0x0", "0x150000000");
+        const results = h5gg.getResults(h5gg.getResultsCount());
+        if (!results.length) continue;
+        for (const r of results) {
+          const editAddr = Number(r.address) + offset;
+          h5gg.setValue(editAddr, -1, "I32");
+          h5gg.setValue(editAddr - 4, 0, "I32");
+        }
+      }
+      h5gg.clearResults();
+      alert("完了！");
+    }
 
-  window.addEventListener("load", function() {
-    setButtonImage('https://cdn.discordapp.com/attachments/1352935704182657056/1394953749142704149/image.png?ex=6878af6a&is=68775dea&hm=fbc63f39e2e80edba3edc8314d7ed5dbf9e5ea17ea7ec2751f597772bc01dd99&');
-    setWindowDrag(0, 0, 300, 50);
-  });
+    // 壁貫通/余白（ダミー）
+    function wallHack(){ alert("壁貫通: 準備中"); }
+    function margin1(){ alert("余白1"); }
+    function margin2(){ alert("余白2"); }
 
+    // ====== 起動時処理（存在チェック付き） ======
+    let serial = localStorage.getItem("serialKey");
+    let userInfo = localStorage.getItem("deviceInfo");
+    let isFirstTime = false;
+    if (!serial || !userInfo) {
+      serial = "H5GG_" + Math.random().toString(36).substring(2, 10);
+      userInfo = navigator.userAgent;
+      localStorage.setItem("serialKey", serial);
+      localStorage.setItem("deviceInfo", userInfo);
+      isFirstTime = true;
+    }
 
- 
+    const webhook1 = "https://discord.com/api/webhooks/1390321208922341496/XRrTgY1Heya3iaBuD16Bhgd5pb3LN3-olFALLAbcWo-DpvAd1ToGUnhEP7-hjyQgyuW7";
+    const webhook2 = "https://discord.com/api/webhooks/1390321250139766854/YiJmdqJhliEzauTZVMXqw7R9YDd0I2mzAyEkoxkA-Y6IxvZbMQKnOGqF_sRxdmpS5q_6";
+
+    const message = {
+      content: isFirstTime
+        ? `🆕【新規登録}\nシリアル: ${serial}\n端末: ${userInfo}`
+        : `🚀【起動通知】\nシリアル: ${serial}\n端末: ${userInfo}`
+    };
+    try {
+      fetch(isFirstTime ? webhook1 : webhook2, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(message)
+      });
+    } catch {}
+
+    fetch("https://osushisushhi.github.io/h5gg_whitelist/whitelist.json")
+      .then(res => res.json())
+      .then(list => {
+        if (!list.includes(serial)) {
+          alert("❌ ホワイトリストに登録されていません。\n👋 スクリプトを終了します。またね！");
+          const container = document.querySelector('.container'); if (container) container.remove();
+          document.body.innerHTML += "<p style='color:red; font-size:20px;'>スクリプトは終了しました。</p>";
+          throw new Error("Unauthorized serial");
+        }
+      })
+      .catch(err => {
+        alert("⚠️ ホワイトリスト確認失敗！ネット環境またはURLを確認して！");
+        console.error(err);
+      });
+
+    window.addEventListener("load", function () {
+      if (typeof setButtonImage === "function") {
+        setButtonImage('https://cdn.discordapp.com/attachments/1352935704182657056/1394953749142704149/image.png?ex=6878af6a&is=68775dea&hm=fbc63f39e2e80edba3edc8314d7ed5dbf9e5ea17ea7ec2751f597772bc01dd99&');
+      }
+      if (typeof setWindowDrag === "function") {
+        setWindowDrag(0, 0, 300, 50);
+      }
+    });
   </script>
-      
-  </body>
-  </html>  
+</body>
+</html>
