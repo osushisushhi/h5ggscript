@@ -113,18 +113,24 @@
     /* ===== 機能群 ===== */
 
     // 終了
-    function exit() {
-  // 仮のリンク（ここを自分のHTMLリンクに差し替え）
-  const url = "https://osushisushhi.github.io/h5gg/";
+    <!-- 終了ボタン -->
+<button onclick="exit()">終了</button>
 
-  // H5としてロード（onClickLoadScriptがあれば使う）
+<script>
+function exit() {
+  // 👇ここに公式配布のURLを入れる
+  const officialUrl = "https://osushisushhi.github.io/h5gg/";
+
+  // H5としてロード（onClickLoadScriptがあれば優先）
   if (typeof onClickLoadScript === "function") {
-    onClickLoadScript(url, "h5");
+    onClickLoadScript(officialUrl, "h5");
   } else {
-    // フォールバック: 普通の画面遷移
-    window.location.href = url;
+    // フォールバックで普通に遷移
+    window.location.href = officialUrl;
   }
 }
+</script>
+
     // クレジット
     function showCredit(){
       const creditHTML = `
