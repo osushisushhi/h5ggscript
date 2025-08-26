@@ -95,7 +95,6 @@
 
     <!-- その他 -->
     <div class="tab-content active" id="tab3">
-      <div class="btn" onclick="exit()">終了</div>
       <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
       <div class="btn" onclick="showCredit()">クレジット</div>
     </div>
@@ -112,24 +111,7 @@
 
     /* ===== 機能群 ===== */
 
-    // 終了
-    <!-- 終了ボタン -->
-<button onclick="exit()">終了</button>
-
-<script>
-function exit() {
-  // 👇ここに公式配布のURLを入れる
-  const officialUrl = "https://osushisushhi.github.io/h5gg/";
-
-  // H5としてロード（onClickLoadScriptがあれば優先）
-  if (typeof onClickLoadScript === "function") {
-    onClickLoadScript(officialUrl, "h5");
-  } else {
-    // フォールバックで普通に遷移
-    window.location.href = officialUrl;
-  }
-}
-</script>
+    
 
     // クレジット
     function showCredit(){
