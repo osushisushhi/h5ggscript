@@ -89,9 +89,11 @@
 
 <!-- ルーム -->
 <div class="tab-content" id="tab2">
-  <!-- ※ ここに変な <div class=> が入ってたので削除 -->
+  <div class="btn" onclick="air()">浮遊(相手視点のみ)</div>
   <div class="btn" onclick="buy()">売り場0円購入</div>
   <div class="btn" onclick="wallHack()">壁貫通</div>
+  <div class="btn" onclick="roomlocet()">即席ロケット</div>
+  <div class="btn" onclick="getdown()">ゲッダン</div>
 </div>
 
 <!-- その他 -->
@@ -110,8 +112,23 @@
     }
 
     /* ===== 機能群 ===== */
+function air(){
+    h5gg.searchNumber("180", "F32", "0x0", "0x200000000");
+h5gg.editAll("10", "F32", "0x0", "0x200000000");
+h5gg.clearResults();
+}
 
-    
+    function roomlocket() {
+      h5gg.searchNumber("0.4", "F32", "0x0", "0x200000000");
+h5gg.editAll("-999", "F32", "0x0", "0x200000000");
+h5gg.clearResults();
+    }
+
+    function getdown() {
+      h5gg.searchNumber("300", "F32", "0x0", "0x200000000");
+h5gg.editAll("5000", "F32", "0x0", "0x200000000");
+h5gg.clearResults();
+    }
 
     // クレジット
     function showCredit(){
