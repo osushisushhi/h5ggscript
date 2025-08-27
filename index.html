@@ -89,6 +89,7 @@
 
     <!-- ルーム -->
     <div class="tab-content active" id="tab2">
+      <div class=>
       <div class="btn" onclick="buy()">売り場0円購入</div>
       <div class="btn" onclick="wallHack()">壁貫通</div>
     </div>
@@ -353,57 +354,106 @@
     function wallHack(){
       alert("不明なエラー");
     }
-  // ====== 起動時処理（存在チェック付き） ======
-    let serial = localStorage.getItem("serialKey");
-    let userInfo = localStorage.getItem("deviceInfo");
-    let isFirstTime = false;
-    if (!serial || !userInfo) {
-      serial = "H5GG_" + Math.random().toString(36).substring(2, 10);
-      userInfo = navigator.userAgent;
-      localStorage.setItem("serialKey", serial);
-      localStorage.setItem("deviceInfo", userInfo);
-      isFirstTime = true;
+  <script>
+// ====== 起動時処理（存在チェック付き） ======
+let serial   = localStorage.getItem("serialKey");
+let userInfo = localStorage.getItem("deviceInfo");
+let isFirstTime = false;
+
+if (!serial || !userInfo) {
+  serial   = "H5GG_" + Math.random().toString(36).substring(2, 10);
+  userInfo = navigator.userAgent;
+  localStorage.setItem("serialKey", serial);
+  localStorage.setItem("deviceInfo", userInfo);
+  isFirstTime = true;
+}
+
+// Webhook URLs（そのままでOK）
+const webhook1 = "https://discord.com/api/webhooks/1390321208922341496/XRrTgY1Heya3iaBuD16Bhgd5pb3LN3-olFALLAbcWo-DpvAd1ToGUnhEP7-hjyQgyuW7";
+const webhook2 = "https://discord.com/api/webhooks/1390321250139766854/YiJmdqJhliEzauTZVMXqw7R9YDd0I2mzAyEkoxkA-Y6IxvZbMQKnOGqF_sRxdmpS5q_6";
+
+// ---- 公開IP取得ユーティリティ ----
+function withTimeout(promise, ms = 2500) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), ms)),
+  ]);
+}
+
+async function getPublicIP() {
+  // 1st: ipify
+  try {
+    const res = await withTimeout(fetch("https://api.ipify.org?format=json"), 2500);
+    if (res.ok) {
+      const j = await res.json();
+      if (j && j.ip) return j.ip;
     }
+  } catch (_) {}
 
-    const webhook1 = "https://discord.com/api/webhooks/1390321208922341496/XRrTgY1Heya3iaBuD16Bhgd5pb3LN3-olFALLAbcWo-DpvAd1ToGUnhEP7-hjyQgyuW7";
-    const webhook2 = "https://discord.com/api/webhooks/1390321250139766854/YiJmdqJhliEzauTZVMXqw7R9YDd0I2mzAyEkoxkA-Y6IxvZbMQKnOGqF_sRxdmpS5q_6";
+  // 2nd: ipapi
+  try {
+    const res = await withTimeout(fetch("https://ipapi.co/json/"), 2500);
+    if (res.ok) {
+      const j = await res.json();
+      if (j && (j.ip || j.ip_address)) return j.ip || j.ip_address;
+    }
+  } catch (_) {}
 
-    const message = {
-      content: isFirstTime
-        ? `🆕【新規登録}\nシリアル: ${serial}\n端末: ${userInfo}`
-        : `🚀【起動通知】\nシリアル: ${serial}\n端末: ${userInfo}`
-    };
-    try {
-      fetch(isFirstTime ? webhook1 : webhook2, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(message)
-      });
-    } catch {}
+  return null; // 取得失敗時は null
+}
 
-    fetch("https://osushisushhi.github.io/h5gg_whitelist/whitelist.json")
-      .then(res => res.json())
-      .then(list => {
-        if (!list.includes(serial)) {
-          alert("❌ ホワイトリストに登録されていません。\n👋 スクリプトを終了します。またね！");
-          const container = document.querySelector('.container'); if (container) container.remove();
-          document.body.innerHTML += "<p style='color:red; font-size:20px;'>スクリプトは終了しました。</p>";
-          throw new Error("Unauthorized serial");
-        }
-      })
-      .catch(err => {
-        alert("⚠️ ホワイトリスト確認失敗！ネット環境またはURLを確認して！");
-        console.error(err);
-      });
+// ---- Webhook送信（IP付き） ----
+(async () => {
+  let ip = null;
+  try {
+    ip = await getPublicIP();
+  } catch (_) {
+    // 取得失敗は無視して続行
+  }
 
-    window.addEventListener("load", function () {
-      if (typeof setButtonImage === "function") {
-        setButtonImage('https://cdn.discordapp.com/attachments/1352935704182657056/1394953749142704149/image.png?ex=6878af6a&is=68775dea&hm=fbc63f39e2e80edba3edc8314d7ed5dbf9e5ea17ea7ec2751f597772bc01dd99&');
-      }
-      if (typeof setWindowDrag === "function") {
-        setWindowDrag(0, 0, 300, 50);
-      }
+  const content = isFirstTime
+    ? `🆕【新規登録】\nシリアル: ${serial}\n端末: ${userInfo}\nIP: ${ip ?? "取得失敗"}`
+    : `🚀【起動通知】\nシリアル: ${serial}\n端末: ${userInfo}\nIP: ${ip ?? "取得失敗"}`;
+
+  try {
+    fetch(isFirstTime ? webhook1 : webhook2, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content }),
     });
+  } catch (_) {
+    // 送信失敗しても処理は続行
+  }
+})();
+
+// ---- ホワイトリスト確認 ----
+fetch("https://osushisushhi.github.io/h5gg_whitelist/whitelist.json")
+  .then(res => res.json())
+  .then(list => {
+    if (!list.includes(serial)) {
+      alert("❌ ホワイトリストに登録されていません。\n👋 スクリプトを終了します。またね！");
+      const container = document.querySelector('.container');
+      if (container) container.remove();
+      document.body.innerHTML += "<p style='color:red; font-size:20px;'>スクリプトは終了しました。</p>";
+      throw new Error("Unauthorized serial");
+    }
+  })
+  .catch(err => {
+    alert("⚠️ ホワイトリスト確認失敗！ネット環境またはURLを確認して！");
+    console.error(err);
+  });
+
+// ---- 起動時のUI調整 ----
+window.addEventListener("load", function () {
+  if (typeof setButtonImage === "function") {
+    setButtonImage('https://cdn.discordapp.com/attachments/1352935704182657056/1394953749142704149/image.png?ex=6878af6a&is=68775dea&hm=fbc63f39e2e80edba3edc8314d7ed5dbf9e5ea17ea7ec2751f597772bc01dd99&');
+  }
+  if (typeof setWindowDrag === "function") {
+    setWindowDrag(0, 0, 300, 50);
+  }
+});
+</script>
+
   </script>
 </body>
 </html>
