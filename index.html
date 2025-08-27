@@ -68,38 +68,37 @@
     <div class="title">Script by osushisushhi</div>
 
     <!-- タブ（1行：ガレージ / ルーム / その他） -->
-    <div class="tabs">
-      <div class="tab active" onclick="switchTab(1)">ガレージ</div>
-      <div class="tab" onclick="switchTab(2)">ルーム</div>
-      <div class="tab" onclick="switchTab(3)">その他</div>
-    </div>
+<div class="tabs">
+  <div class="tab active" onclick="switchTab(1)">ガレージ</div>
+  <div class="tab" onclick="switchTab(2)">ルーム</div>
+  <div class="tab" onclick="switchTab(3)">その他</div>
+</div>
 
-    <!-- ガレージ -->
-    <div class="tab-content active" id="tab1">
-      <div class="btn" onclick="injectCrownProtocol()">クラウンアンロック</div>
-      <div class="btn" onclick="oniCamber()">鬼キャン</div>
-      <div class="btn" onclick="customHorsepower()">カスタム馬力</div>
-      <div class="btn" onclick="rocketPower()">ロケット</div>
-      <div class="btn" onclick="carBodyChrome()">車体メッキ</div>
-      <div class="btn" onclick="wheelChrome()">ホイールメッキ</div>
-      <div class="btn" onclick="implantParts()">移植パーツ</div>
-      <div class="btn" onclick="implantWing()">移植ウィング</div>
-      <div class="btn" onclick="longname()">ロングネーム</div>
-    </div>
+<!-- ガレージ -->
+<div class="tab-content active" id="tab1">
+  <div class="btn" onclick="injectCrownProtocol()">クラウンアンロック</div>
+  <div class="btn" onclick="oniCamber()">鬼キャン</div>
+  <div class="btn" onclick="customHorsepower()">カスタム馬力</div>
+  <div class="btn" onclick="rocketPower()">ロケット</div>
+  <div class="btn" onclick="carBodyChrome()">車体メッキ</div>
+  <div class="btn" onclick="wheelChrome()">ホイールメッキ</div>
+  <div class="btn" onclick="implantParts()">移植パーツ</div>
+  <div class="btn" onclick="implantWing()">移植ウィング</div>
+  <div class="btn" onclick="longname()">ロングネーム</div>
+</div>
 
-    <!-- ルーム -->
-    <div class="tab-content active" id="tab2">
-      <div class=>
-      <div class="btn" onclick="buy()">売り場0円購入</div>
-      <div class="btn" onclick="wallHack()">壁貫通</div>
-    </div>
+<!-- ルーム -->
+<div class="tab-content" id="tab2">
+  <!-- ※ ここに変な <div class=> が入ってたので削除 -->
+  <div class="btn" onclick="buy()">売り場0円購入</div>
+  <div class="btn" onclick="wallHack()">壁貫通</div>
+</div>
 
-    <!-- その他 -->
-    <div class="tab-content active" id="tab3">
-      <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
-      <div class="btn" onclick="showCredit()">クレジット</div>
-    </div>
-  </div>
+<!-- その他 -->
+<div class="tab-content" id="tab3">
+  <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
+  <div class="btn" onclick="showCredit()">クレジット</div>
+</div>
 
   <script>
     /* タブ切替 */
