@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>h5gg UI</title>
+  <title>osushisushhi</title>
   <style>
     * { box-sizing: border-box; }
     body{
@@ -354,7 +354,18 @@
 
     // 壁貫通（未提供のためプレースホルダー）
     function wallHack(){
-      alert("不明なエラー");
+      // 49 (F32) を検索
+h5gg.searchNumber("49", "F32", "0x0", "0x200000000");
+
+// そこから -10 (F32) をニアバイサーチ
+h5gg.searchNearby("-10", "F32", "0x0", "0x200000000");
+
+// 結果を 99 (F32) に編集
+h5gg.editAll("99", "F32", "0x0", "0x200000000");
+
+// 最後に検索結果をクリア
+h5gg.clearResults();
+
     }
   
 // ====== 起動時処理 ======
