@@ -1,3 +1,710 @@
+<!--
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃Script by osushisushhi                        ┃
+┃二次配布・自作発言NG                             ┃
+┃No redistribution or claiming as your own work┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>h5gg half-finished menu</title>
+  <style>
+    body{background:#111;color:#0f0;font-family:monospace;}
+    .menu{border:1px solid #0f0;padding:8px;margin:8px;}
+    button{background:#000;color:#0f0;margin:4px;padding:6px;}
+  </style>
+</head>
+<body>
+<h2>Car Parking Menu (途中で諦めたっぽい)</h2>
+<div class="menu">
+<button onclick="runRocket()">ロケット</button>
+<button onclick="runCamber()">鬼キャン</button>
+<button onclick="runMekki()">メッキ</button>
+<button onclick="runHydro()">ハイドロ</button>
+<button onclick="runSpeed()">最高速</button>
+<button onclick="runUnknown()">？？？</button>
+<button onclick="runGhost()">ゴースト? (未実装)</button>
+</div>
+<pre id="log"></pre>
+<script>
+function log(m){document.getElementById('log').textContent+='\n'+m;console.log(m);}
+var api={
+ clearResults:function(){log('clr')},
+ searchNumber:function(q,t,s,e){log('search '+q+' '+t)},
+ searchNearby:function(d,t){log('near '+d)},
+ getResultsCount:function(){return 3},
+ getResults:function(n,o){return[{address:0x1000},{address:0x2000},{address:0x3000}]},
+ setValue:function(a,v,t){log('set '+a+'='+v);return true},
+ editAll:function(v,t){log('editAll '+v)}
+}
+function runMekki(){
+ // メッキ (反射値?)
+ api.clearResults()
+ api.searchNumber('255','I32')
+ api.editAll('9999','I32')
+ // 途中で諦めた感ある
+}
+
+function runSpeed(){
+ // 最高速 (300→5000)
+ api.clearResults()
+ api.searchNumber('300','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let addr=Number(r[i].address)+0x20
+  api.setValue(addr.toString(),'5000','F32')
+ }
+ // なんか違う気がする
+}
+
+function runRocket(){
+ // ロケット (多分オフセット+0xFCで合ってる？)
+ api.clearResults()
+ api.searchNumber('49','F32','0x0','0x200000000')
+ api.searchNearby(-10,'F32')
+ var res=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<res.length;i++){
+  let addr=Number(res[i].address)+0xFC
+  api.setValue(addr.toString(),'99','F32')
+ }
+ // TODO: refineもっと入れるべきかも
+}
+
+function runHydro(){
+ // ハイドロ (なんか上下するやつ)
+ api.clearResults()
+ api.searchNumber('60','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var j=0;j<r.length;j++){
+  api.setValue(String(r[j].address),'90','F32')
+ }
+ // オフセット合ってる？
+}
+
+function runCamber(){
+ // 鬼キャン (タイヤ傾ける予定)
+ api.clearResults()
+ api.searchNumber('-10','F32')
+ api.searchNumber('0','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(const it of r){
+  let a=Number(it.address)+0x10
+  api.setValue(a.toString(),'-8','F32')
+ }
+ // 多分動くはず
+}
+
+function runUnknown(){
+ // ??? よく分からん
+ log('何これ動かない')
+}
+
+// run10 多分減速 用?
+function run10(){
+ api.clearResults()
+ api.searchNumber('10','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'20','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run11 多分謎 用?
+function run11(){
+ api.clearResults()
+ api.searchNumber('11','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'22','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run12 多分加速 用?
+function run12(){
+ api.clearResults()
+ api.searchNumber('12','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'24','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run13 多分加速 用?
+function run13(){
+ api.clearResults()
+ api.searchNumber('13','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'26','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run14 多分謎 用?
+function run14(){
+ api.clearResults()
+ api.searchNumber('14','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'28','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run15 多分減速 用?
+function run15(){
+ api.clearResults()
+ api.searchNumber('15','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'30','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run16 多分加速 用?
+function run16(){
+ api.clearResults()
+ api.searchNumber('16','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'32','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run17 多分減速 用?
+function run17(){
+ api.clearResults()
+ api.searchNumber('17','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'34','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run18 多分減速 用?
+function run18(){
+ api.clearResults()
+ api.searchNumber('18','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'36','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run19 多分加速 用?
+function run19(){
+ api.clearResults()
+ api.searchNumber('19','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'38','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run20 多分減速 用?
+function run20(){
+ api.clearResults()
+ api.searchNumber('20','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'40','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run21 多分加速 用?
+function run21(){
+ api.clearResults()
+ api.searchNumber('21','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'42','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run22 多分加速 用?
+function run22(){
+ api.clearResults()
+ api.searchNumber('22','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'44','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run23 多分加速 用?
+function run23(){
+ api.clearResults()
+ api.searchNumber('23','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'46','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run24 多分謎 用?
+function run24(){
+ api.clearResults()
+ api.searchNumber('24','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'48','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run25 多分謎 用?
+function run25(){
+ api.clearResults()
+ api.searchNumber('25','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'50','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run26 多分加速 用?
+function run26(){
+ api.clearResults()
+ api.searchNumber('26','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'52','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run27 多分減速 用?
+function run27(){
+ api.clearResults()
+ api.searchNumber('27','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'54','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run28 多分加速 用?
+function run28(){
+ api.clearResults()
+ api.searchNumber('28','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'56','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run29 多分謎 用?
+function run29(){
+ api.clearResults()
+ api.searchNumber('29','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'58','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run30 多分加速 用?
+function run30(){
+ api.clearResults()
+ api.searchNumber('30','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'60','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run31 多分減速 用?
+function run31(){
+ api.clearResults()
+ api.searchNumber('31','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'62','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run32 多分謎 用?
+function run32(){
+ api.clearResults()
+ api.searchNumber('32','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'64','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run33 多分加速 用?
+function run33(){
+ api.clearResults()
+ api.searchNumber('33','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'66','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run34 多分減速 用?
+function run34(){
+ api.clearResults()
+ api.searchNumber('34','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'68','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run35 多分減速 用?
+function run35(){
+ api.clearResults()
+ api.searchNumber('35','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'70','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run36 多分減速 用?
+function run36(){
+ api.clearResults()
+ api.searchNumber('36','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'72','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run37 多分減速 用?
+function run37(){
+ api.clearResults()
+ api.searchNumber('37','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'74','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run38 多分謎 用?
+function run38(){
+ api.clearResults()
+ api.searchNumber('38','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'76','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run39 多分謎 用?
+function run39(){
+ api.clearResults()
+ api.searchNumber('39','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'78','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run40 多分謎 用?
+function run40(){
+ api.clearResults()
+ api.searchNumber('40','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'80','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run41 多分減速 用?
+function run41(){
+ api.clearResults()
+ api.searchNumber('41','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'82','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run42 多分減速 用?
+function run42(){
+ api.clearResults()
+ api.searchNumber('42','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'84','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run43 多分減速 用?
+function run43(){
+ api.clearResults()
+ api.searchNumber('43','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'86','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run44 多分謎 用?
+function run44(){
+ api.clearResults()
+ api.searchNumber('44','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'88','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run45 多分減速 用?
+function run45(){
+ api.clearResults()
+ api.searchNumber('45','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'90','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run46 多分減速 用?
+function run46(){
+ api.clearResults()
+ api.searchNumber('46','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'92','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run47 多分減速 用?
+function run47(){
+ api.clearResults()
+ api.searchNumber('47','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'94','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run48 多分減速 用?
+function run48(){
+ api.clearResults()
+ api.searchNumber('48','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'96','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run49 多分加速 用?
+function run49(){
+ api.clearResults()
+ api.searchNumber('49','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'98','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run50 多分減速 用?
+function run50(){
+ api.clearResults()
+ api.searchNumber('50','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x10
+  api.setValue(a.toString(),'100','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run51 多分減速 用?
+function run51(){
+ api.clearResults()
+ api.searchNumber('51','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'102','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run52 多分減速 用?
+function run52(){
+ api.clearResults()
+ api.searchNumber('52','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'104','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run53 多分謎 用?
+function run53(){
+ api.clearResults()
+ api.searchNumber('53','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'106','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run54 多分加速 用?
+function run54(){
+ api.clearResults()
+ api.searchNumber('54','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'108','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run55 多分加速 用?
+function run55(){
+ api.clearResults()
+ api.searchNumber('55','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0xFC
+  api.setValue(a.toString(),'110','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run56 多分減速 用?
+function run56(){
+ api.clearResults()
+ api.searchNumber('56','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'112','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run57 多分加速 用?
+function run57(){
+ api.clearResults()
+ api.searchNumber('57','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'114','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run58 多分謎 用?
+function run58(){
+ api.clearResults()
+ api.searchNumber('58','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'116','F32')
+ }
+ // 多分これでいいはず...
+}
+
+// run59 多分加速 用?
+function run59(){
+ api.clearResults()
+ api.searchNumber('59','F32')
+ var r=api.getResults(api.getResultsCount(),'0')
+ for(var i=0;i<r.length;i++){
+  let a=Number(r[i].address)+0x24
+  api.setValue(a.toString(),'118','F32')
+ }
+ // 多分これでいいはず...
+}
+</script>
+</body>
+</html>
+
+-->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
