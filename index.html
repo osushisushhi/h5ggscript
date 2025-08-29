@@ -5,14 +5,13 @@
   <title>osushisushhi</title>
   <style>
     * { box-sizing: border-box; }
-    body{
+    body {
       margin:0; padding:0;
       background: radial-gradient(ellipse at center, #000010, #000000);
       font-family:'Orbitron','Arial',sans-serif; color:#fff;
-      overflow-y:auto; /* 画面全体スクロール可 */
+      overflow-y:auto;
     }
-
-    .container{
+    .container {
       border:2px solid #00f0ff;
       width: min(420px, 92vw);
       margin: 20px auto;
@@ -21,21 +20,18 @@
       background: linear-gradient(180deg, rgba(0,255,255,.05), rgba(255,0,255,.05));
       box-shadow:0 0 25px rgba(0,255,255,.35), 0 0 40px rgba(255,0,255,.2);
       backdrop-filter: blur(4px);
-      max-height: calc(100vh - 40px);   /* 画面には収める */
-      overflow-y: auto;                  /* 中身が長い時は内部スクロール */
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
     }
-
-    .title{
+    .title {
       text-align:center; color:#00f0ff; font-weight:700;
       font-size:16px; margin:4px 0 10px;
       text-shadow:0 0 6px #00f0ff, 0 0 10px #ff00ff;
     }
-
-    /* --- タブ（1行） --- */
-    .tabs{
+    .tabs {
       display:flex; gap:8px; margin-bottom:12px;
     }
-    .tab{
+    .tab {
       flex:1 1 0; text-align:center; padding:10px 8px; cursor:pointer;
       border:2px solid #00f0ff; border-radius:8px;
       background:rgba(0,0,0,.3); color:#fff; font-weight:700;
@@ -44,14 +40,11 @@
       transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
       user-select:none;
     }
-    .tab:hover{ transform: translateY(-1px); }
-    .tab.active{ background:rgba(0,255,255,.2); box-shadow:0 0 15px #00f0ff; }
-
-    /* --- コンテンツ --- */
-    .tab-content{ display:none; }
-    .tab-content.active{ display:block; }
-
-    .btn{
+    .tab:hover { transform: translateY(-1px); }
+    .tab.active { background:rgba(0,255,255,.2); box-shadow:0 0 15px #00f0ff; }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+    .btn {
       width:100%; padding:14px; margin:10px 0;
       background: rgba(255,0,255,.15);
       color:#fff; border:2px solid #ff00ff; border-radius:10px;
@@ -60,47 +53,46 @@
       box-shadow:0 0 15px #ff00ff, 0 0 8px rgba(255,0,255,.3);
       transition: transform .15s ease, box-shadow .15s ease;
     }
-    .btn:hover{ transform:scale(1.03); box-shadow:0 0 18px #ff00ff, 0 0 20px #00f0ff; }
+    .btn:hover { transform:scale(1.03); box-shadow:0 0 18px #ff00ff, 0 0 20px #00f0ff; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="title">Script by osushisushhi</div>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(1)">ガレージ</div>
+      <div class="tab" onclick="switchTab(2)">ルーム</div>
+      <div class="tab" onclick="switchTab(3)">その他</div>
+    </div>
 
-    <!-- タブ（1行：ガレージ / ルーム / その他） -->
-<div class="tabs">
-  <div class="tab active" onclick="switchTab(1)">ガレージ</div>
-  <div class="tab" onclick="switchTab(2)">ルーム</div>
-  <div class="tab" onclick="switchTab(3)">その他</div>
-</div>
+    <!-- ガレージ -->
+    <div class="tab-content active" id="tab1">
+      <div class="btn" onclick="injectCrownProtocol()">クラウンアンロック</div>
+      <div class="btn" onclick="oniCamber()">鬼キャン</div>
+      <div class="btn" onclick="customHorsepower()">カスタム馬力</div>
+      <div class="btn" onclick="rocketPower()">ロケット</div>
+      <div class="btn" onclick="carBodyChrome()">車体メッキ</div>
+      <div class="btn" onclick="wheelChrome()">ホイールメッキ</div>
+      <div class="btn" onclick="implantParts()">移植パーツ</div>
+      <div class="btn" onclick="implantWing()">移植ウィング</div>
+      <div class="btn" onclick="longname()">ロングネーム</div>
+    </div>
 
-<!-- ガレージ -->
-<div class="tab-content active" id="tab1">
-  <div class="btn" onclick="injectCrownProtocol()">クラウンアンロック</div>
-  <div class="btn" onclick="oniCamber()">鬼キャン</div>
-  <div class="btn" onclick="customHorsepower()">カスタム馬力</div>
-  <div class="btn" onclick="rocketPower()">ロケット</div>
-  <div class="btn" onclick="carBodyChrome()">車体メッキ</div>
-  <div class="btn" onclick="wheelChrome()">ホイールメッキ</div>
-  <div class="btn" onclick="implantParts()">移植パーツ</div>
-  <div class="btn" onclick="implantWing()">移植ウィング</div>
-  <div class="btn" onclick="longname()">ロングネーム</div>
-</div>
+    <!-- ルーム -->
+    <div class="tab-content" id="tab2">
+      <div class="btn" onclick="air()">浮遊(相手視点のみ)</div>
+      <div class="btn" onclick="buy()">売り場0円購入</div>
+      <div class="btn" onclick="wallHack()">壁貫通</div>
+      <div class="btn" onclick="roomlocket()">即席ロケット</div>
+      <div class="btn" onclick="getdown()">ゲッダン</div>
+    </div>
 
-<!-- ルーム -->
-<div class="tab-content" id="tab2">
-  <div class="btn" onclick="air()">浮遊(相手視点のみ)</div>
-  <div class="btn" onclick="buy()">売り場0円購入</div>
-  <div class="btn" onclick="wallHack()">壁貫通</div>
-  <div class="btn" onclick="roomlocet()">即席ロケット</div>
-  <div class="btn" onclick="getdown()">ゲッダン</div>
-</div>
-
-<!-- その他 -->
-<div class="tab-content" id="tab3">
-  <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
-  <div class="btn" onclick="showCredit()">クレジット</div>
-</div>
+    <!-- その他 -->
+    <div class="tab-content" id="tab3">
+      <div class="btn" onclick="showVersionHistory()">バージョン履歴</div>
+      <div class="btn" onclick="showCredit()">クレジット</div>
+    </div>
+  </div>
 
   <script>
     /* タブ切替 */
