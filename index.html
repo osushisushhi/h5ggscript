@@ -1849,7 +1849,7 @@ h5gg.clearResults();
     })();
 
    // ホワイトリスト確認 
-    fetch("https://osushisushhi.github.io/h5gg_whitelist/whitelist.json") .then((res) => res.json()) .then((list) => { if (!list.includes(serial)) { alert("❌ ホワイトリストに登録されていません。\n👋 スクリプトを終了します。またね！"); const container = document.querySelector('.container'); if (container) { container.remove(); } document.body.innerHTML += "<p style='color:red; font-size:20px;'>スクリプトは終了しました。</p>"; throw new Error("Unauthorized serial"); } }) .catch((err) => { alert("⚠️ ホワイトリスト確認失敗！ネット環境またはURLを確認して！"); throw err; });
+    fetch("https://osushisushhi.github.io/h5gg_whitelist/whitelist.json") .then((res) => res.json()) .then((list) => { if (!list.includes(serial)) { alert("❌ ホワイトリストに登録されていません。\n👋 スクリプトを終了します。またね！"); const container = document.querySelector('.container'); if (container) { container.remove(); } document.body.innerHTML += "<p style='color:red; font-size:20px;'>スクリプトは終了しました。</p>"; throw new Error("Unauthorized serial"); } }) .catch((err) => { alert("不明なエラーが発生しました"); throw err; });
   </script>
 </body>
 </html>
