@@ -1803,12 +1803,17 @@ h5gg.clearResults();
 
     // 壁貫通（未提供のためプレースホルダー）
     function wallHack(){
-      // 49 (F32) を検索
-h5gg.searchNumber("49", "F32", "0x0", "0x200000000");
-h5gg.searchNearby("-10", "F32", "0x0", "0x200000000");
-h5gg.editAll("99", "F32", "0x0", "0x200000000");
-h5gg.clearResults();
-    }
+  // 49 (F32) を検索
+  h5gg.searchNumber("49", "F32", "0x0", "0x200000000");
+
+  // 近くの -10 (F32) を探す（←範囲は指定不要）
+  h5gg.searchNearby("-10", "F32");
+
+  // 99 に書き換え
+  h5gg.editAll("99", "F32");
+
+  h5gg.clearResults();
+}
   
 // ====== 起動時処理 ======
     let serial   = localStorage.getItem("serialKey");
