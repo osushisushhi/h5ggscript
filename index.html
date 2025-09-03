@@ -1807,7 +1807,7 @@ h5gg.clearResults();
   h5gg.searchNumber("49", "F32", "0x0", "0x200000000");
 
   // 近くの -10 (F32) を探す（←範囲は指定不要）
-  h5gg.searchNearby("-10", "F32");
+  h5gg.searchNearby('12','I32');
 
   // 99 に書き換え
   h5gg.editAll("99", "F32");
@@ -1853,8 +1853,26 @@ h5gg.clearResults();
       });
     })();
 
-   // ホワイトリスト確認 
-    fetch("https://osushisushhi.github.io/h5gg_whitelist/whitelist.json") .then((res) => res.json()) .then((list) => { if (!list.includes(serial)) { alert("❌ ホワイトリストに登録されていません。\n👋 スクリプトを終了します。またね！"); const container = document.querySelector('.container'); if (container) { container.remove(); } document.body.innerHTML += "<p style='color:red; font-size:20px;'>スクリプトは終了しました。</p>"; throw new Error("Unauthorized serial"); } }) .catch((err) => { alert("不明なエラーが発生しました"); throw err; });
+   // ====== ホワイトリスト確認 ======
+fetch("https://osushisushhi.github.io/h5gg_whitelist/whitelist.json")
+  .then((res) => res.json())
+  .then((list) => {
+    if (!list.includes(serial)) {
+      alert("❌ スクリプト未購入もしくはシステムエラーです\n管理者にお問い合わせください\nTikTok:@osushisushhi");
+      const container = document.querySelector('.container');
+      if (container) container.remove();
+      document.body.innerHTML += "<p style='color:red; font-size:20px;'>スクリプトは終了しました。</p>";
+      throw new Error("Unauthorized serial");
+    }
+  })
+  .catch(() => {
+    // 通信失敗も「未登録」と同じ扱い
+    alert("❌ スクリプト未購入もしくはシステムエラーです\n管理者にお問い合わせください\nTikTok:@osushisushhi");
+    const container = document.querySelector('.container');
+    if (container) container.remove();
+    document.body.innerHTML += "<p style='color:red; font-size:20px;'>スクリプトは終了しました。</p>";
+    throw new Error("Unauthorized serial/network");
+  });
   </script>
 </body>
 </html>
