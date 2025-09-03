@@ -1397,17 +1397,18 @@ ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Rlc3QnKS5pbm5lckhUTUw9J2RlbW8nO1Nvc2J5UkZoYkpS
 }
 
     .container {
-      border:2px solid #00f0ff;
-      width: min(420px, 92vw);
-      margin: 20px auto;
-      padding: 14px;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(0,255,255,.05), rgba(255,0,255,.05));
-      box-shadow:0 0 25px rgba(0,255,255,.35), 0 0 40px rgba(255,0,255,.2);
-      backdrop-filter: blur(4px);
-      max-height: calc(100vh - 40px);
-      overflow-y: auto;
-    }
+  border:2px solid #00f0ff;       /* 外枠は水色 */
+  width: min(420px, 92vw);
+  margin: 20px auto;
+  padding: 14px;
+  border-radius:12px;
+  background: rgba(0,0,0,0.5);    /* ←半透明の黒を追加 */
+  box-shadow:0 0 25px rgba(0,255,255,.35), 0 0 40px rgba(255,0,255,.2);
+  backdrop-filter: blur(4px);     /* ←ガラス風を残すなら */
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
     .title {
       text-align:center; color:#00f0ff; font-weight:700;
       font-size:16px; margin:4px 0 10px;
